@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>Fill me in</title>
+</head>
+<script src="/js/jquery-2.1.3.min.js"></script>
+<script src="/js/jquery-1.11.0.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+
+<script src="/js/main.js"></script>
+<link href="/css/main.css" rel="stylesheet" />
+
+<body>
+<h1>Fill me in</h1>
+<form>
+<textarea onclick="empty_box();" name="paste_input" id="paste_input" rows="4" cols="50">
+Enter text
+</textarea>
+</form>
+<button id="post_button" onmousedown="ajax_post();">Submit</button>
+<h3></h3>
+<pre id="result"></pre>
+</br>
+<p>
+  <h3>Output</h3>
+    <table>
+        <tr>
+          <th colspan="2">Historic Paste Data</th>
+          <th colspan="2">Historic Paste Data</th>
+          <th colspan="2">Historic Paste Data</th>
+        </tr>
+      <% paste_data.each do |p| %>
+        <tr>
+          <td><%= p[:date]%></td>
+          <td><%= p[:paste]%></td>
+          <td>
+            <button type="button" class="btn btn-default" aria-label="Right Align" onclick>
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </button>
+          </td>
+        </tr>
+      <% end unless paste_data.nil? %>
+
+    </table>
+</body>
+</html>

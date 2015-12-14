@@ -1,0 +1,13 @@
+== sinatra_paste ==
+Paste text 
+
+=== Licence ===
+GPL 2.0 see LICENCE for more information.
+
+=== Install ===
+Should be as simple as:
+
+----
+    bundle install
+    rackup
+----
