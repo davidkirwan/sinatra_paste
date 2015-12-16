@@ -14,7 +14,7 @@ function ajax_post(){
       console.log(theData);
       var divtoupdate = "result";
       var enablebutton = "post_button";
-      $("#"+divtoupdate).html(theData.data);
+      $("#"+divtoupdate).html(theData.paste);
       $("#"+enablebutton).addClass("enabled");
       onSuccess(theData.data);
     }
@@ -23,4 +23,8 @@ function ajax_post(){
 
 function empty_box(){
   $("#paste_input").val("");
+}
+
+function onSuccess(data){
+  ;
 }

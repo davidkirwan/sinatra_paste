@@ -24,24 +24,18 @@ Enter text
 </br>
 <p>
   <h3>Output</h3>
-    <table>
-        <tr>
-          <th colspan="2">Historic Paste Data</th>
-          <th colspan="2">Historic Paste Data</th>
-          <th colspan="2">Historic Paste Data</th>
-        </tr>
+    <div class="container-fluid">
       <% paste_data.each do |p| %>
-        <tr>
-          <td><%= p[:date]%></td>
-          <td><%= p[:paste]%></td>
-          <td>
-            <button type="button" class="btn btn-default" aria-label="Right Align" onclick>
+        <div class="row-fluid">
+          <div class="col-md-4"><%= p[:date]%></div>
+          <div class="col-md-6"><%= p[:paste]%></div>
+          <div class="col-md-2">
+            <button type="button" class="btn btn-default" aria-label="Right Align" onclick="">
               <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             </button>
-          </td>
-        </tr>
+          </div>
+        </div>
       <% end unless paste_data.nil? %>
-
-    </table>
+    </div>
 </body>
 </html>

@@ -1,2 +1,0 @@
-# sinatra_paste
-placeholder
