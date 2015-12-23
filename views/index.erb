@@ -13,28 +13,56 @@
 
 <body>
 <h1>Fill me in</h1>
-<form>
-<textarea onclick="empty_box();" name="paste_input" id="paste_input" rows="4" cols="50">
-Enter text
-</textarea>
-</form>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <form>
+        <div class="col-md-10">
+          <input onclick="empty_title();" type="text" name="paste_title" id="paste_title" value="Enter title"></input>
+        </div>
+        <div class="col-md-2">
+          <select name="paste_language" id="paste_language">
+            <option value="1" selected>Text</option>
+            <option value="2">Javascript</option>
+            <option value="3">Python</option>
+            <option value="4">Ruby</option>
+          </select>
+        </div>
+        <div class="col-md-12">
+          <textarea onclick="empty_box();" name="paste_input" id="paste_input" rows="4" cols="50">Enter text</textarea>
+        </div>
+      </form>
+    </row>
+  </div>
 <button id="post_button" onmousedown="ajax_post();">Submit</button>
-<h3></h3>
+<h3>Response</h3>
 <pre id="result"></pre>
 </br>
 <p>
   <h3>Output</h3>
     <div class="container-fluid">
       <% paste_data.each do |p| %>
-        <div class="row-fluid">
-          <div class="col-md-4"><%= p[:date]%></div>
-          <div class="col-md-6"><%= p[:paste]%></div>
-          <div class="col-md-2">
-            <button type="button" class="btn btn-default" aria-label="Right Align" onclick="">
-              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-            </button>
+        <!-- start of row -->
+        <div class="row">
+          <div class="row">
+            <div class="col-md-1 small"><image src="/images/language-<%= p[:language]%>.png" height="25" width="25"/></div>
+            <div class="col-md-3 small"><%= p[:date]%></div>
+            <div class="col-md-8 small"><%= p[:title]%></div>
+          </div>
+          <div class="row">
+            <div class="col-md-10"><pre><%= p[:paste]%></pre></div>
+            <div class="col-md-1">
+              <button type="button" class="btn btn-default" onclick="edit_paste(<%= p[:id]%>);">
+                <span class="glyphicon glyphicon-edit"></span>
+              </button>
+            </div>
+            <div class="col-md-1">
+              <button type="button" class="btn btn-default" onclick="delete_paste(<%= p[:id]%>);">
+                <span class="glyphicon glyphicon-remove"></span>
+              </button>
+            </div>
           </div>
         </div>
+        <!-- end of row -->
       <% end unless paste_data.nil? %>
     </div>
 </body>
