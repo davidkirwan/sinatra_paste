@@ -11,16 +11,15 @@ function ajax_post(){
 
   $.ajax({
     type: "POST",
-    url: "/paste",
+    url: "/pastes",
     data: data,
     success: function(data){
       var theData = JSON.parse(data);
-      console.log(theData);
       var divtoupdate = "result";
       var enablebutton = "post_button";
-      $("#"+divtoupdate).html(theData.paste);
+      $("#"+divtoupdate).html(data);
       $("#"+enablebutton).addClass("enabled");
-      onSuccess(theData.data);
+      onSuccess(theData);
     }
   });
 }
@@ -56,5 +55,19 @@ function edit_paste(id){
 }
 
 function delete_paste(id){
-  console.log("Delete: " + id);
+  $.ajax({
+    type: "DELETE",
+    url: "/pastes/"+id.toString(),
+    success: function(result){
+      var divtoupdate = "result";
+      $("#"+divtoupdate).html(result);
+    }
+  });
+}
+
+function clear_fields(){
+  var text = $('#paste_input').val();
+  var title = $('#paste_title').val();
+  $("#paste_input").val("");
+  $("#paste_title").val("");
 }
