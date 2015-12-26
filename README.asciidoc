@@ -1,5 +1,5 @@
 == sinatra_paste ==
-Paste text 
+Paste text, simple pastebin/gist clone 
 
 === Licence ===
 GPL 2.0 see LICENCE for more information.

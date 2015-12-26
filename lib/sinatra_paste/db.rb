@@ -4,13 +4,13 @@ module The
 class Db
 
   def self.drop_table()
-    rows = @@db.execute <<-SQL
+    rows = @db.execute <<-SQL
       drop table if exists pastes;
     SQL
   end
 
   def self.create_table()
-    @@db.execute <<-SQL
+    @db.execute <<-SQL
       create table if not exists pastes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         date TEXT,
@@ -22,7 +22,7 @@ class Db
   end
 
   def self.populate_table()
-    size = @@db.execute("SELECT count(*) FROM pastes;")
+    size = @db.execute("SELECT count(*) FROM pastes;")
 
     if size[0][0] == 0
       initial = [ 
@@ -34,7 +34,7 @@ class Db
 		{:date=>Time.now.utc, :title=>"Latest title", :language=>"4", :paste=>"some paste latest"}
 	      ]
       initial.each do |i|
-        @@db.execute("INSERT INTO pastes (id,date,title,language,paste) VALUES (?,?,?,?,?)", 
+        @db.execute("INSERT INTO pastes (id,date,title,language,paste) VALUES (?,?,?,?,?)", 
                     nil, i[:date].to_s, i[:title], i[:language], i[:paste])
       end
     end
@@ -43,11 +43,11 @@ class Db
   # {"date":"2015-12-25 20:58:03 UTC","title":"dfdf","paste":"dfdf","language":"1","id":1006}
   def self.get_instance()
     begin
-      @@db = SQLite3::Database.new "pastes.db"
+      @db = SQLite3::Database.new "pastes.db"
     
       self.create_table()
       self.populate_table()
-      @@db
+      @db
     rescue SQLite3::Exception => e
       puts e.backtrace
     end
