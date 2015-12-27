@@ -52,7 +52,10 @@ class API
     
     if params["paste_input"].nil? ||
        params["paste_language"].nil? ||
-       params["paste_title"].nil?
+       params["paste_title"].nil? ||
+       params["paste_input"] == "" ||
+       params["paste_language"] == "" || 
+       params["paste_title"] == ""
       return false
     else
       return true

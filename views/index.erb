@@ -18,8 +18,11 @@
   <div class="container-fluid">
     <div class="row-fluid">
       <form>
-        <div class="col-md-10">
-          <input onclick="empty_title();" type="text" name="paste_title" id="paste_title" value="Enter title"></input>
+        <div class="col-md-12">
+          <input class="paste-title" onclick="empty_title();" type="text" name="paste_title" id="paste_title" value="Enter title"></input>
+        </div>
+        <div class="col-md-12">
+          <textarea class="form-control paste-input" onclick="empty_box();" name="paste_input" id="paste_input">Enter text</textarea>
         </div>
         <div class="col-md-2">
           <select name="paste_language" id="paste_language">
@@ -30,14 +33,11 @@
             <option value="5">C</option>
           </select>
         </div>
-        <div class="col-md-12">
-          <textarea onclick="empty_box();" name="paste_input" id="paste_input" rows="4" cols="50">Enter text</textarea>
-        </div>
       </form>
+      <button id="post_button" onmousedown="ajax_post();">Submit</button>
+      <button id="post_button" onmousedown="clear_fields();">Clear</button>
     </row>
   </div>
-<button id="post_button" onmousedown="ajax_post();">Submit</button>
-<button id="post_button" onmousedown="clear_fields();">Clear</button>
 <h3>Response</h3>
 <pre id="result"></pre>
 </br>
@@ -49,7 +49,7 @@
         <div class="row pastes">
           <div class="row">
             <div class="col-md-1 small">
-              <image class="image_padding" src="/images/language-<%= p[:language]%>.png" height="25" width="25"/>
+              <image class="image_padding" src="/images/language-<%= p[:language] %>.png" height="25" width="25"/>
             </div>
             <div class="col-md-1 small"><%= p[:id]%></div>
             <div class="col-md-2 small"><%= p[:date]%></div>
