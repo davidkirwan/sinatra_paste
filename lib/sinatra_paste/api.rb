@@ -7,7 +7,7 @@ class API
 
   def self.configure()
     @db = The::Db.get_instance() unless defined? @db
-    @languages = {"1"=>"text", "2"=>"javascript", "3"=>"python", "4"=>"ruby", "5"=>"c"}
+    @languages = {"1"=>"text", "2"=>"javascript", "3"=>"python", "4"=>"ruby", "5"=>"c", "6"=>"c++", "7"=>"java"}
   end
   
   def self.add_paste(params={})
