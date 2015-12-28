@@ -20,6 +20,10 @@ function ajax_post(){
       $("#"+divtoupdate).html(data);
       $("#"+enablebutton).addClass("enabled");
       onSuccess(theData);
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown){
+      var divtoupdate = "result";
+      $("#"+divtoupdate).html(XMLHttpRequest.responseText);
     }
   });
 }

@@ -53,19 +53,14 @@ class App < Sinatra::Base
   end
 
   get '/pastes/:id' do |id|
-    size = The::API.get_pastes_size()
-    id = id.to_i
-    if id <= size && id >= 1
-      return The::API.get_paste(id).to_json
-    else
-      throw :halt, [400, {"Content-Type" => "text/plain"}, ["400 Bad Request"]]
-    end
+    return The::API.get_paste(id).to_json
   end
 
   post '/pastes' do
-    throw :halt, [400, {"Content-Type" => "text/plain"}, ["400 Bad Request"]] unless The::API.check_post_paste_params(params)
+    check, message = The::API.check_post_paste_params(params)
+    unless check then throw :halt, [400, {"Content-Type" => "text/plain"}, [message.to_json]]; end
     paste = The::API.add_paste(params)
-    paste.to_json
+    {:messages=>[message, paste]}.to_json
   end
 
   delete '/pastes/:id' do |id|

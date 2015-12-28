@@ -15,9 +15,9 @@ class API
                 "INSERT INTO pastes (id,date,title,paste,language) VALUES (?,?,?,?,?)",
                 nil, Time.now.utc.to_s, params["paste_title"], params["paste_input"], params["paste_language"]
                )
-    rows = @db.execute("SELECT * FROM pastes ORDER BY id DESC LIMIT 1;")
-    id, date, title, language, paste = rows[0]
-    paste = { :id=>id, :date=>date, :title=>title, :paste=>paste, :language=>language, :lang_name=>@languages[language]}
+    rows = @db.execute("SELECT id FROM pastes ORDER BY id DESC LIMIT 1;")
+    id = rows[0][0]
+    paste = { :id=>id, :message=>"paste successfully added"}
     return paste
   end
 
@@ -39,7 +39,7 @@ class API
 
   def self.delete_paste(id)
     @db.execute("DELETE FROM pastes where id=?;", id)
-    return {:id=>id, :message=>"paste deleted"}
+    return {:id=>id.to_i, :message=>"paste deleted"}
   end
 
   def self.get_pastes_size()
@@ -53,12 +53,12 @@ class API
     if params["paste_input"].nil? ||
        params["paste_language"].nil? ||
        params["paste_title"].nil? ||
-       params["paste_input"] == "" ||
-       params["paste_language"] == "" || 
-       params["paste_title"] == ""
-      return false
+       params["paste_input"] == "" || params["paste_input"] == "Enter text" ||
+       params["paste_title"] == "" || params["paste_title"] == "Enter title" ||
+       params["paste_language"] == ""
+      return false, {:message=>"Invalid parameters"}
     else
-      return true
+      return true, {:message=>"Parameters valid"}
     end
   end
 
