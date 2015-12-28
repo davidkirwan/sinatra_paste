@@ -3,7 +3,7 @@ $stdout.sync = true
 # @author       David Kirwan https://github.com/davidkirwan/sinatra_paste
 # @description  Simple pastebin/gist clone
 #
-# @date         2015-12-26
+# @date         2015-12-28
 ####################################################################################################
 ##### Require statements
 require 'sinatra/base'
@@ -53,13 +53,22 @@ class App < Sinatra::Base
   end
 
   get '/pastes/:id' do |id|
-    return The::API.get_paste(id).to_json
+    erb :edit_paste, :locals => {:paste_data => The::API.get_paste(id)}
   end
 
   post '/pastes' do
+    settings.log.debug "params: " + params.inspect
+    
     check, message = The::API.check_post_paste_params(params)
     unless check then throw :halt, [400, {"Content-Type" => "text/plain"}, [message.to_json]]; end
     paste = The::API.add_paste(params)
+    {:messages=>[message, paste]}.to_json
+  end
+
+  put '/pastes/:id' do |id|
+    check, message = The::API.check_post_paste_params(params)
+    unless check then throw :halt, [400, {"Content-Type" => "text/plain"}, [message.to_json]]; end
+    paste = The::API.update_paste(id, params)
     {:messages=>[message, paste]}.to_json
   end
 

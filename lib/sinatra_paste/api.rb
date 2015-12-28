@@ -32,7 +32,16 @@ class API
   def self.get_paste(id)
     rows = @db.execute("SELECT * FROM pastes where id=?;", id)
     id, date, title, language, paste = rows[0]
-    return {:id=>id, :date=>date, :title=>title, :language=>language, :paste=>paste}
+    return {:id=>id, :date=>date, :title=>title, :language=>language, :paste=>paste, :lang_name=>@languages[language]}
+  end
+
+  def self.update_paste(id, params={})
+    @db.execute(
+                "UPDATE pastes SET date=?, title=?, paste=?, language=? WHERE id=?",
+                Time.now.utc.to_s, params["paste_title"], params["paste_input"], params["paste_language"], id
+               )
+    paste = { :id=>id, :message=>"paste successfully updated"}
+    return paste
   end
 
   def self.delete_paste(id)
@@ -46,8 +55,6 @@ class API
   end
 
   def self.check_post_paste_params(params)
-    puts "params: " + params.inspect
-    
     if params["paste_input"].nil? ||
        params["paste_language"].nil? ||
        params["paste_title"].nil? ||

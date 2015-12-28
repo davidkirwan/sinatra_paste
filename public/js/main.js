@@ -55,7 +55,26 @@ function onSuccess(data){
 }
 
 function edit_paste(id){
-  console.log("Edit:" + id);
+  var title = $('#paste_title').val();
+  var language = $('#paste_language').val();
+  var paste = $('#paste_input').val();
+  var data = { paste_input : paste,
+               paste_language : language,
+               paste_title : title };
+
+  $.ajax({
+    type: "PUT",
+    url: "/pastes/" + id,
+    data: data,
+    success: function(data){
+      window.location = "/";
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown){
+      window.location = "/";
+      var divtoupdate = "result";
+      $("#"+divtoupdate).html(XMLHttpRequest.responseText);
+    }
+  });
 }
 
 function delete_paste(id){
@@ -74,4 +93,8 @@ function clear_fields(){
   var title = $('#paste_title').val();
   $("#paste_input").val("");
   $("#paste_title").val("");
+}
+
+function cancel_edit() {
+  window.location = "/";
 }
