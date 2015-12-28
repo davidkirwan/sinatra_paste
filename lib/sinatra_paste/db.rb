@@ -3,7 +3,7 @@ require "sqlite3"
 module The
 class Db
 
-  def self.drop_table()
+  def self.drop_tables()
     rows = @db.execute <<-SQL
       drop table if exists pastes;
     SQL
@@ -44,9 +44,6 @@ class Db
   def self.get_instance()
     begin
       @db = SQLite3::Database.new "pastes.db"
-    
-      self.create_table()
-      self.populate_table()
       @db
     rescue SQLite3::Exception => e
       puts e.backtrace

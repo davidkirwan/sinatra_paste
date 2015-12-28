@@ -1,5 +1,3 @@
-
-
 module The
 class API
 
