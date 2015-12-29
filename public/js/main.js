@@ -68,6 +68,8 @@ function edit_paste(id){
     data: data,
     success: function(data){
       window.location = "/";
+      var divtoupdate = "result";
+      $("#"+divtoupdate).html(data);
     },
     error: function(XMLHttpRequest, textStatus, errorThrown){
       window.location = "/";

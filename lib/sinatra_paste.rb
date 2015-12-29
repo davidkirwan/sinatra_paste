@@ -77,4 +77,4 @@ class App < Sinatra::Base
   end
 
 end # End of the App class
-end # End of the Generator module
+end # End of the The module
